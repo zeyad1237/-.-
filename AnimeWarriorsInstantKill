@@ -3,3 +3,9 @@ game.StarterGui:SetCore("SendNotification", {
     Text = "Script outdated, please get a new one on thread";
     Duration = 15;
 })
+game.StarterGui:SetCore("SendNotification", {
+    Title = "Anime Warriors";
+    Text = "Thread link has been copied in your Clipboard";
+    Duration = 15;
+})
+setclipboard("https://v3rmillion.net/showthread.php?tid=1131640")
