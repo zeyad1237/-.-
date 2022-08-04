@@ -5,8 +5,15 @@ do
 		return false
 	end)
 
+    local req
+    if is_synapse_function then
+        req = syn.request
+    else
+        req = request
+    end
+
 	local ReqHook
-	ReqHook = hookfunction(syn.request, newcclosure(function(...)
+	ReqHook = hookfunction(req, newcclosure(function(...)
 		t = {...}
         if t[1].Url:find('auth') then
 			return {
@@ -78,3 +85,4 @@ local function Loader()
     loadstring(Script)()
 end
 Loader()
+    
