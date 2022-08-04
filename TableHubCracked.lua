@@ -9,7 +9,7 @@ do
         if is_synapse_function then
             req = syn.request
         else
-            req = request
+            req = http_request
         end
 
 	local ReqHook
