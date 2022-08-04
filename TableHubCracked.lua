@@ -72,6 +72,7 @@ local function Loader()
 	getgenv().discord_id = '809804156956835841'
 
     local Status, Script = pcall(game.HttpGet, game, 'https://raw.githubusercontent.com/AltsegoD/scripts/egoD/TableHub.lua')
+    -- You can change the above link to 'https://tablehub.net/v2/script' if you want to get the latest update of the script, will not gonna work if they patched this
 
     if Status ~= true then Loader() end
     loadstring(Script)()
