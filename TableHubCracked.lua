@@ -5,12 +5,12 @@ do
 		return false
 	end)
 
-    local req
-    if is_synapse_function then
-        req = syn.request
-    else
-        req = request
-    end
+        local req
+        if is_synapse_function then
+            req = syn.request
+        else
+            req = request
+        end
 
 	local ReqHook
 	ReqHook = hookfunction(req, newcclosure(function(...)
