@@ -1,0 +1,75 @@
+repeat wait() until game:IsLoaded()
+
+do
+	getgenv().is_synapse_function = newcclosure(function()
+		return false
+	end)
+
+	local ReqHook
+	ReqHook = hookfunction(syn.request, newcclosure(function(...)
+		t = {...}
+        if t[1].Url:find('auth') then
+			return {
+                Success = true,
+                StatusMessage = "OK",
+				StatusCode = 200,
+                Cookies = {},
+				Body = '{"error":true, "message":"di me may nhen con suc vat bucki nameki"}',
+				Headers = game:GetService("HttpService"):JSONEncode({
+					Authorization = 'vando123'
+				}),
+			}
+		end
+		return ReqHook(...)
+	end))
+
+	local SubHook
+	SubHook = hookfunction(string.sub, newcclosure(function(...)
+		t = {...}
+		if checkcaller() then
+			if #t[1] == 128 then
+				return 'vando123vando123vando123vando123vando123vando123vando123vando123'
+			end
+		end
+		return SubHook(...)
+	end))
+
+	local DecodeHook
+	DecodeHook = hookfunction(game:GetService("HttpService").JSONDecode, newcclosure(function(...) 
+		t = {...}
+		if checkcaller() and t[2] and t[2]:find('"message":') then
+			return {
+				error = false,
+				message = "vando123vando123vando123vando123vando123vando123vando123vando123"
+			}
+		end
+		return DecodeHook(...)
+	end))
+
+
+	local DecodeHookV2
+	DecodeHookV2 = hookmetamethod(game,"__namecall", newcclosure(function(...) 
+		if checkcaller() then 
+			t = {...}
+			if getnamecallmethod() == "JSONDecode" and t[2] and t[2]:find('"message":') then 
+				return {
+					error = false,
+					message = "vando123vando123vando123vando123vando123vando123vando123vando123"
+				}
+			end
+		end    
+		return DecodeHookV2(...)
+	end))
+end
+
+local function Loader()
+	getgenv().key = 'Table-1233-1234-1234-1234'
+	getgenv().discord_id = '809804156956835841'
+
+    local Status, Script = pcall(game.HttpGet, game, 'https://raw.githubusercontent.com/AltsegoD/scripts/egoD/TableHub.lua')
+
+    if Status ~= true then Loader() end
+    loadstring(Script)()
+end
+Loader()
+setfpscap(25)
