@@ -5,15 +5,10 @@ do
 		return false
 	end
 
-	local req
-	if is_synapse_function then
-		req = syn.request
-	else
-		req = http_request
-	end
+        getgenv().http_request = http_request or request or syn.request
 
 	local ReqHook
-	ReqHook = hookfunction(req, function(...)
+	ReqHook = hookfunction(http_request, function(...)
 		t = {...}
         if t[1].Url:find('auth') then
 			return {
@@ -29,7 +24,7 @@ do
 		end
 		return ReqHook(...)
 	end)
-
+	
 	local SubHook
 	SubHook = hookfunction(string.sub, function(...)
 		t = {...}
