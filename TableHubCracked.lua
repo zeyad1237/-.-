@@ -62,6 +62,11 @@ do
 	end))
 end
 
+-- Delete Xenon Hub's folder if you have, Table Hub won't let you execute the script if you got xenon folder in workspace, just like my sea hub :troll:
+if isfolder("Xenon Hub Premium Scripts") then
+    delfolder("Xenon Hub Premium Scripts")
+end
+
 local function Loader()
 	getgenv().key = 'Table-1233-1234-1234-1234'
 	getgenv().discord_id = '809804156956835841'
