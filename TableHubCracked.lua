@@ -1,19 +1,19 @@
 repeat wait() until game:IsLoaded()
 
 do
-	getgenv().is_synapse_function = newcclosure(function()
+	getgenv().is_synapse_function = function()
 		return false
-	end)
+	end
 
-        local req
-        if is_synapse_function then
-            req = syn.request
-        else
-            req = http_request
-        end
+	local req
+	if is_synapse_function then
+		req = syn.request
+	else
+		req = http_request
+	end
 
 	local ReqHook
-	ReqHook = hookfunction(req, newcclosure(function(...)
+	ReqHook = hookfunction(req, function(...)
 		t = {...}
         if t[1].Url:find('auth') then
 			return {
@@ -28,10 +28,10 @@ do
 			}
 		end
 		return ReqHook(...)
-	end))
+	end)
 
 	local SubHook
-	SubHook = hookfunction(string.sub, newcclosure(function(...)
+	SubHook = hookfunction(string.sub, function(...)
 		t = {...}
 		if checkcaller() then
 			if #t[1] == 128 then
@@ -39,10 +39,10 @@ do
 			end
 		end
 		return SubHook(...)
-	end))
+	end)
 
 	local DecodeHook
-	DecodeHook = hookfunction(game:GetService("HttpService").JSONDecode, newcclosure(function(...) 
+	DecodeHook = hookfunction(game:GetService("HttpService").JSONDecode, function(...) 
 		t = {...}
 		if checkcaller() and t[2] and t[2]:find('"message":') then
 			return {
@@ -51,11 +51,11 @@ do
 			}
 		end
 		return DecodeHook(...)
-	end))
+	end)
 
 
 	local DecodeHookV2
-	DecodeHookV2 = hookmetamethod(game,"__namecall", newcclosure(function(...) 
+	DecodeHookV2 = hookmetamethod(game,"__namecall", function(...) 
 		if checkcaller() then 
 			t = {...}
 			if getnamecallmethod() == "JSONDecode" and t[2] and t[2]:find('"message":') then 
@@ -66,10 +66,10 @@ do
 			end
 		end    
 		return DecodeHookV2(...)
-	end))
+	end)
 end
 
--- Delete Xenon Hub's folder if you have, Table Hub won't let you execute the script if you got xenon folder in workspace, just like my sea hub :troll:
+-- Delete Xenon Hub's folder if you have, Table Hub won't let you execute the script if you got xenon folder in workspace, just like my sea hub <:troll:910751219465732117>
 if isfolder("Xenon Hub Premium Scripts") then
     delfolder("Xenon Hub Premium Scripts")
 end
@@ -85,4 +85,3 @@ local function Loader()
     loadstring(Script)()
 end
 Loader()
-    
