@@ -78,4 +78,3 @@ local function Loader()
     loadstring(Script)()
 end
 Loader()
-setfpscap(25)
